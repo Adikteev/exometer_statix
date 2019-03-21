@@ -39,7 +39,7 @@ defmodule ExometerStatix.Mixfile do
 
   defp deps do
     [
-      {:statix, "~> 1.0"},
+      {:statix, github: "Adikteev/statix"},
       {:ex_doc, "~> 0.14", only: :dev},
     ]
   end

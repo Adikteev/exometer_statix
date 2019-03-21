@@ -28,11 +28,19 @@ defmodule ExometerStatix do
 
   @doc false
   def exometer_report(metric, datapoint, _extra, value, %{type_map: type_map} = state) do
-    key = metric ++ [datapoint]
-    name = Enum.join(key, ".")
-    type = report_type(key, type_map)
-
-    report(type, name, value)
+    seq =
+      case metric do
+        {m, _tags} -> m
+        _ -> metric
+      end ++ [datapoint]
+    type = report_type(seq, type_map)
+    name = Enum.join(seq, ".")
+    key =
+      case metric do
+        {_m, tags} -> {name, tags}
+        _ -> name
+      end
+    report(type, key, value)
     {:ok, state}
   end
 
