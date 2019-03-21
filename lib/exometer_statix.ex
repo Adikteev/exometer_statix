@@ -108,7 +108,7 @@ defmodule ExometerStatix do
   end
 
   defp report(:gauge, n, v), do: Client.gauge(n, v)
-  defp report(:timer, n, v), do: Client.timing(n, v)
+  defp report(:timer, n, v), do: Client.gauge(n, v)
   defp report(:counter, n, v) when is_number(v) and v != 0, do: Client.increment(n, v)
   defp report(:histogram, n, v), do: Client.histogram(n, v)
   defp report(_, _, _), do: nil
